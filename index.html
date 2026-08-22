@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Something Special 🕷️</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    font-family: Arial, sans-serif;
+}
+
+/* ==========================
+   WEBSITE SCREENS
+========================== */
+
+.screen {
+    display: none;
+
+    width: 100%;
+    min-height: 100vh;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.screen.active {
+    display: block;
+}
+
+
+/* ==========================
+   CANVA ARTWORK
+========================== */
+
+.artwork {
+    width: 100%;
+    height: auto;
+
+    display: block;
+}
+
+
+/* ==========================
+   PAGE 1
+========================== */
+
+#page1 {
+    position: relative;
+
+    width: 100%;
+    max-width: 1600px;
+
+    margin: 0 auto;
+}
+
+
+/* ==========================
+   CODE DISPLAY
+========================== */
+
+.code-display {
+
+    position: absolute;
+
+    /*
+       These positions are based
+       on your screenshot.
+
+       We can adjust them later.
+    */
+
+    top: 35%;
+    right: 6%;
+
+    display: flex;
+
+    gap: 7px;
+
+    z-index: 10;
+}
+
+
+.code-box {
+
+    width: clamp(38px, 5vw, 62px);
+    height: clamp(38px, 5vw, 62px);
+
+    border: 4px solid #101010;
+
+    border-radius: 10px;
+
+    background: rgba(100,130,160,0.7);
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(20px, 3vw, 32px);
+
+    font-weight: bold;
+
+    transition: 0.12s;
+}
+
+
+.code-box.filled {
+
+    transform: scale(1.08);
+
+    background: rgba(255,255,255,0.35);
+
+    box-shadow:
+        0 0 10px white;
+
+}
+
+
+/* ==========================
+   KEYPAD
+========================== */
+
+.keypad {
+
+    position: absolute;
+
+    top: 48%;
+
+    right: 5.2%;
+
+    width: 25%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 2.2vw;
+
+    z-index: 10;
+}
+
+
+.key {
+
+    aspect-ratio: 1 / 1;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #d92b2b;
+
+    color: white;
+
+    font-size: clamp(18px, 3vw, 34px);
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.1s,
+        background 0.1s,
+        box-shadow 0.1s;
+
+}
+
+
+.key:hover {
+
+    transform: scale(1.08);
+
+    box-shadow:
+        0 0 12px rgba(255,50,50,0.8);
+
+}
+
+
+.key:active {
+
+    transform: scale(0.85);
+
+    background: #ff5555;
+
+}
+
+
+/* ==========================
+   ERROR MESSAGE
+========================== */
+
+#error {
+
+    display: none;
+
+    position: absolute;
+
+    top: 29%;
+
+    right: 7%;
+
+    color: #ff2020;
+
+    font-size: clamp(14px, 2vw, 25px);
+
+    font-weight: bold;
+
+    z-index: 20;
+
+    text-shadow:
+        0 0 5px #000;
+
+}
+
+
+#error.show {
+
+    display: block;
+
+    animation: shake 0.3s;
+
+}
+
+
+@keyframes shake {
+
+    0%   { transform: translateX(0); }
+
+    25%  { transform: translateX(-8px); }
+
+    50%  { transform: translateX(8px); }
+
+    75%  { transform: translateX(-8px); }
+
+    100% { transform: translateX(0); }
+
+}
+
+
+/* ==========================
+   ENTER BUTTON
+========================== */
+
+#enterButton {
+
+    display: none;
+
+    position: absolute;
+
+    top: 82%;
+
+    right: 7%;
+
+    z-index: 20;
+
+    padding: 15px 30px;
+
+    border:
+
+        3px solid white;
+
+    border-radius: 15px;
+
+    background: #d92b2b;
+
+    color: white;
+
+    font-size: clamp(16px, 2vw, 25px);
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    animation:
+        glow 0.8s infinite alternate;
+
+}
+
+
+#enterButton.show {
+
+    display: block;
+
+}
+
+
+@keyframes glow {
+
+    from {
+
+        box-shadow:
+            0 0 5px white;
+
+        transform: scale(1);
+
+    }
+
+    to {
+
+        box-shadow:
+            0 0 20px red,
+            0 0 40px red;
+
+        transform: scale(1.05);
+
+    }
+
+}
+
+
+/* ==========================
+   UNLOCK ANIMATION
+========================== */
+
+#page1.unlocking {
+
+    animation:
+
+        flash 0.8s forwards;
+
+}
+
+
+@keyframes flash {
+
+    0% {
+
+        filter:
+            brightness(1);
+
+    }
+
+    35% {
+
+        filter:
+            brightness(3)
+            saturate(2);
+
+    }
+
+    100% {
+
+        filter:
+            brightness(0);
+
+    }
+
+}
+
+
+/* ==========================
+   OTHER PAGES
+========================== */
+
+.other-page {
+
+    width: 100%;
+
+    max-width: 1600px;
+
+    margin: 0 auto;
+
+    position: relative;
+
+}
+
+
+.other-page img {
+
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+}
+
+
+/* ==========================
+   BACK BUTTON
+========================== */
+
+.back-button {
+
+    position: fixed;
+
+    bottom: 20px;
+
+    right: 20px;
+
+    z-index: 100;
+
+    background: rgba(0,0,0,0.7);
+
+    color: white;
+
+    border: 2px solid white;
+
+    border-radius: 10px;
+
+    padding: 10px 16px;
+
+    cursor: pointer;
+
+    display: none;
+
+}
+
+
+/* ==========================
+   MUSIC INDICATOR
+========================== */
+
+#musicIndicator {
+
+    display: none;
+
+    position: fixed;
+
+    bottom: 20px;
+
+    left: 20px;
+
+    z-index: 100;
+
+    background: rgba(0,0,0,0.75);
+
+    color: white;
+
+    border-radius: 20px;
+
+    padding: 10px 15px;
+
+    font-size: 14px;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     PAGE 1 — LOCK SCREEN
+===================================== -->
+
+<div
+    id="page1"
+    class="screen active"
+>
+
+
+    <!-- YOUR CANVA PAGE -->
+
+    <img
+        src="page1.png"
+        class="artwork"
+        alt=""
+    >
+
+
+    <!-- CODE DISPLAY -->
+
+    <div
+        class="code-display"
+        id="codeDisplay"
+    >
+
+        <div
+            class="code-box"
+            id="box1"
+        ></div>
+
+        <div
+            class="code-box"
+            id="box2"
+        ></div>
+
+        <div
+            class="code-box"
+            id="box3"
+        ></div>
+
+        <div
+            class="code-box"
+            id="box4"
+        ></div>
+
+    </div>
+
+
+    <!-- ERROR -->
+
+    <div
+        id="error"
+    >
+        ACCESS DENIED
+    </div>
+
+
+    <!-- KEYPAD -->
+
+    <div
+        class="keypad"
+    >
+
+        <button
+            class="key"
+            onclick="press('1')"
+        >
+            1
+        </button>
+
+        <button
+            class="key"
+            onclick="press('2')"
+        >
+            2
+        </button>
+
+        <button
+            class="key"
+            onclick="press('3')"
+        >
+            3
+        </button>
+
+
+        <button
+            class="key"
+            onclick="press('4')"
+        >
+            4
+        </button>
+
+        <button
+            class="key"
+            onclick="press('5')"
+        >
+            5
+        </button>
+
+        <button
+            class="key"
+            onclick="press('6')"
+        >
+            6
+        </button>
+
+
+        <button
+            class="key"
+            onclick="press('7')"
+        >
+            7
+        </button>
+
+        <button
+            class="key"
+            onclick="press('8')"
+        >
+            8
+        </button>
+
+        <button
+            class="key"
+            onclick="press('9')"
+        >
+            9
+        </button>
+
+
+        <button
+            class="key"
+            onclick="clearCode()"
+        >
+            *
+        </button>
+
+        <button
+            class="key"
+            onclick="press('0')"
+        >
+            0
+        </button>
+
+        <button
+            class="key"
+            onclick="backspace()"
+        >
+            #
+        </button>
+
+    </div>
+
+
+    <!-- ENTER -->
+
+    <button
+        id="enterButton"
+        onclick="unlock()"
+    >
+        🔓 ENTER
+    </button>
+
+</div>
+
+
+<!-- =====================================
+     PAGE 2
+===================================== -->
+
+<div
+    id="page2"
+    class="screen other-page"
+>
+
+    <img
+        src="page2.png"
+        alt=""
+    >
+
+</div>
+
+
+<!-- =====================================
+     PAGE 3
+===================================== -->
+
+<div
+    id="page3"
+    class="screen other-page"
+>
+
+    <img
+        src="page3.png"
+        alt=""
+    >
+
+</div>
+
+
+<!-- =====================================
+     PAGE 4
+===================================== -->
+
+<div
+    id="page4"
+    class="screen other-page"
+>
+
+    <img
+        src="page4.png"
+        alt=""
+    >
+
+</div>
+
+
+<!-- =====================================
+     PAGE 5
+===================================== -->
+
+<div
+    id="page5"
+    class="screen other-page"
+>
+
+    <img
+        src="page5.png"
+        alt=""
+    >
+
+</div>
+
+
+<!-- =====================================
+     PAGE 6
+===================================== -->
+
+<div
+    id="page6"
+    class="screen other-page"
+>
+
+    <img
+        src="page6.png"
+        alt=""
+    >
+
+</div>
+
+
+<!-- =====================================
+     MUSIC
+===================================== -->
+
+<audio
+    id="music"
+    loop
+>
+
+    <source
+        src="sunflower.mp3"
+        type="audio/mpeg"
+    >
+
+</audio>
+
+
+<!-- MUSIC INDICATOR -->
+
+<div
+    id="musicIndicator"
+>
+    🎵 Music playing
+</div>
+
+
+<script>
+
+
+/* =====================================
+   SECRET CODE
+===================================== */
+
+let enteredCode = "";
+
+const secretCode = "1022";
+
+
+/* =====================================
+   ENTER NUMBER
+===================================== */
+
+function press(number) {
+
+
+    /* Don't allow more than 4 digits */
+
+    if (enteredCode.length >= 4) {
+
+        return;
+
+    }
+
+
+    enteredCode += number;
+
+
+    updateDisplay();
+
+
+    /* Check after 4 digits */
+
+    if (enteredCode.length === 4) {
+
+
+        if (enteredCode === secretCode) {
+
+
+            /* CORRECT */
+
+            document
+                .getElementById("error")
+                .classList.remove("show");
+
+
+            document
+                .getElementById("enterButton")
+                .classList.add("show");
+
+
+        }
+
+        else {
+
+
+            /* WRONG */
+
+            const error =
+                document.getElementById("error");
+
+
+            error.classList.remove("show");
+
+
+            /* Restart animation */
+
+            void error.offsetWidth;
+
+
+            error.classList.add("show");
+
+
+            setTimeout(
+
+                clearCode,
+
+                1000
+
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =====================================
+   UPDATE THE 4 BOXES
+===================================== */
+
+function updateDisplay() {
+
+
+    const boxes = [
+
+        document.getElementById("box1"),
+
+        document.getElementById("box2"),
+
+        document.getElementById("box3"),
+
+        document.getElementById("box4")
+
+    ];
+
+
+    boxes.forEach(
+
+        (box, index) => {
+
+
+            if (enteredCode[index]) {
+
+
+                box.textContent =
+                    enteredCode[index];
+
+
+                box.classList.add(
+                    "filled"
+                );
+
+
+            }
+
+            else {
+
+
+                box.textContent = "";
+
+                box.classList.remove(
+                    "filled"
+                );
+
+            }
+
+        }
+
+    );
+
+}
+
+
+/* =====================================
+   CLEAR *
+===================================== */
+
+function clearCode() {
+
+
+    enteredCode = "";
+
+
+    document
+        .getElementById("enterButton")
+        .classList.remove("show");
+
+
+    document
+        .getElementById("error")
+        .classList.remove("show");
+
+
+    updateDisplay();
+
+}
+
+
+/* =====================================
+   BACKSPACE #
+===================================== */
+
+function backspace() {
+
+
+    enteredCode =
+        enteredCode.slice(0, -1);
+
+
+    document
+        .getElementById("enterButton")
+        .classList.remove("show");
+
+
+    updateDisplay();
+
+}
+
+
+/* =====================================
+   UNLOCK
+===================================== */
+
+function unlock() {
+
+
+    const music =
+        document.getElementById("music");
+
+
+    /*
+       The click on ENTER counts as
+       a user interaction, so this is
+       where we start the music.
+    */
+
+    music.play()
+        .then(() => {
+
+
+            document
+                .getElementById(
+                    "musicIndicator"
+                )
+                .style.display = "block";
+
+
+        })
+        .catch(error => {
+
+            console.log(
+                "Music could not start:",
+                error
+            );
+
+        });
+
+
+    /* Spider-Verse flash */
+
+    document
+        .getElementById("page1")
+        .classList.add("unlocking");
+
+
+    /*
+       Wait for animation,
+       then show Page 2.
+    */
+
+    setTimeout(
+
+        () => {
+
+
+            document
+                .getElementById("page1")
+                .classList.remove(
+                    "active"
+                );
+
+
+            document
+                .getElementById("page2")
+                .classList.add(
+                    "active"
+                );
+
+
+            window.scrollTo(
+                0,
+                0
+            );
+
+
+        },
+
+        800
+
+    );
+
+}
+
+
+/* =====================================
+   OPTIONAL PAGE NAVIGATION
+===================================== */
+
+function showPage(number) {
+
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(
+            page =>
+                page.classList.remove(
+                    "active"
+                )
+        );
+
+
+    document
+        .getElementById(
+            "page" + number
+        )
+        .classList.add(
+            "active"
+        );
+
+
+    window.scrollTo(
+        0,
+        0
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>
